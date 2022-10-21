@@ -3,6 +3,7 @@ version: 2
 sources:
   - name: analytics_wallop
     database: bigquery-312020
+    loader: PowerMyAnalytics
     tables:
       - name: pma_google_analytics_ua_performance
         identifier: pma_google_analytics_ua_performance_*

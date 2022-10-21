@@ -1,0 +1,5 @@
+dbt  --profiles-dir . run-operation generate_source --args \
+'{"schema_name": "analytics_wallop", "table_names": ["pma_Bing_Ads_Performance_Ad_Level_"], "database_name": "bigquery-312020", "generate_columns": "True"}' \
+>> pma_Bing_Ads_Performance_Ad_Level_.yml
+
+dbt run --profiles-dir .

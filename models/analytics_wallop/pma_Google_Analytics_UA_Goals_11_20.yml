@@ -1,0 +1,27 @@
+version: 2
+
+sources:
+  - name: analytics_wallop
+    database: bigquery-312020
+    tables:
+      - name: pma_google_analytics_ua_goals_11_20
+        identifier: pma_google_analytics_ua_goals_11_20_*
+        columns:
+          - name: adwordsadgroupid
+          - name: campaign
+          - name: channelgrouping
+          - name: date
+          - name: goal11completions
+          - name: goal12completions
+          - name: goal13completions
+          - name: goal14completions
+          - name: goal15completions
+          - name: goal16completions
+          - name: goal17completions
+          - name: goal18completions
+          - name: goal19completions
+          - name: goal20completions
+          - name: source
+          - name: sourcemedium
+          - name: configname
+

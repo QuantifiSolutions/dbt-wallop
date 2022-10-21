@@ -1,0 +1,26 @@
+version: 2
+
+sources:
+  - name: analytics_wallop
+    database: bigquery-312020
+    tables:
+      - name: pma_google_ads_performance_ad_level
+        identifier: pma_google_ads_performance_ad_level__*
+        columns:
+          - name: account_id
+          - name: ad_group_id
+          - name: ad_type
+          - name: adgroup_name
+          - name: campaign_id
+          - name: campaign_name
+          - name: clicks
+          - name: cost
+          - name: date
+          - name: description1
+          - name: description2
+          - name: headline1
+          - name: headline2
+          - name: headline3
+          - name: impressions
+          - name: configname
+

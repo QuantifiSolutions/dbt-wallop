@@ -4,7 +4,8 @@ sources:
   - name: analytics_wallop
     database: bigquery-312020
     tables:
-      - name: pma_bing_ads_performance_ad_level_
+      - name: pma_bing_ads_performance_ad_level
+        identifier: pma_bing_ads_performance_ad_level_ 
         columns:
           - name: addescription
           - name: addescription2

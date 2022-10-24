@@ -17,7 +17,7 @@ dbt_wallop:
       dataset: prod
       job_execution_timeout_seconds: 300
       job_retries: 1
-      keyfile: dbt-wallop-dev-1-24a4ba3f890f.json
+      keyfile: /secrets/dbt-service-keyfile
       location: US
       method: service-account
       priority: interactive

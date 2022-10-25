@@ -6,7 +6,7 @@ sources:
     loader: PowerMyAnalytics
     tables:
       - name: pma_google_analytics_ua_goals_1_10
-        identifier: pma_google_analytics_ua_goals_1_10_*
+        identifier: pma_Google_Analytics_UA_Goals_1_10_*
         columns:
           - name: adwordsadgroupid
           - name: campaign

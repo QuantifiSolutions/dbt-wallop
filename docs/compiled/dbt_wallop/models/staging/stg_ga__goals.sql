@@ -34,6 +34,7 @@ ga_goals AS (
         AND g1.campaign = g2.campaign
         AND g1.source = g2.source
         AND g1.date = g2.date
+        AND g1.configName = g2.configName
         )
 
 SELECT * FROM ga_goals

@@ -1,12 +1,11 @@
-version: 2
+[0m01:57:15  Running with dbt=1.3.0
+[0m01:57:15  version: 2
 
 sources:
   - name: analytics_wallop
     database: bigquery-312020
-    loader: PowerMyAnalytics
     tables:
-      - name: pma_google_analytics_ua_performance
-        identifier: pma_Google_Analytics_UA_Performance_*
+      - name: pma_google_analytics_ua_performance_*
         columns:
           - name: adclicks
           - name: adcost
@@ -25,3 +24,4 @@ sources:
           - name: transactionrevenue
           - name: transactions
           - name: configname
+

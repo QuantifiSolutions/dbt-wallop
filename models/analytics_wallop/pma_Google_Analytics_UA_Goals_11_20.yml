@@ -6,7 +6,7 @@ sources:
     loader: PowerMyAnalytics
     tables:
       - name: pma_google_analytics_ua_goals_11_20
-        identifier: pma_google_analytics_ua_goals_11_20_*
+        identifier: pma_Google_Analytics_UA_Goals_11_20_*
         columns:
           - name: adwordsadgroupid
           - name: campaign
@@ -25,4 +25,3 @@ sources:
           - name: source
           - name: sourcemedium
           - name: configname
-

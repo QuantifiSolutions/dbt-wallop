@@ -32,6 +32,7 @@ ga_goals AS (
         g2.goal20Completions AS goal20_completions,
         g1.date,
         g1.configName AS config_name,
+        'TEST' AS test_col,
     FROM `bigquery-312020`.`analytics_wallop`.`pma_Google_Analytics_UA_Goals_1_10_*` g1
     JOIN `bigquery-312020`.`analytics_wallop`.`pma_Google_Analytics_UA_Goals_11_20_*` g2
         ON g1.adwordsAdGroupID = g2.adwordsAdGroupID

@@ -1,5 +1,3 @@
 dbt run-operation generate_source --args \
 '{"schema_name": "analytics_wallop", "table_names": ["pma_Google_Analytics_UA_Performance_*"], "database_name": "bigquery-312020", "generate_columns": "True"}' \
 >> pma_Google_Analytics_UA_Performance.yml
-
-dbt run --profiles-dir .

@@ -38,8 +38,3 @@ ga_goals AS (
         )
 
 SELECT * FROM ga_goals
-
-
-
-
-    

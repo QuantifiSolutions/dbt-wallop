@@ -6,7 +6,7 @@ sources:
     loader: PowerMyAnalytics
     tables:
       - name: pma_bing_ads_performance_ad_level
-        identifier: pma_bing_ads_performance_ad_level_ 
+        identifier: pma_Bing_Ads_Performance_Ad_Level_ 
         columns:
           - name: addescription
           - name: addescription2

@@ -6,7 +6,7 @@ sources:
     loader: PowerMyAnalytics
     tables:
       - name: pma_google_analytics_ua_performance
-        identifier: pma_google_analytics_ua_performance_*
+        identifier: pma_Google_Analytics_UA_Performance_*
         columns:
           - name: adclicks
           - name: adcost
@@ -25,4 +25,3 @@ sources:
           - name: transactionrevenue
           - name: transactions
           - name: configname
-

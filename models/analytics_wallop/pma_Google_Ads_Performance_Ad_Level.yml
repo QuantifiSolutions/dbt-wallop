@@ -6,7 +6,7 @@ sources:
     loader: PowerMyAnalytics
     tables:
       - name: pma_google_ads_performance_ad_level
-        identifier: pma_google_ads_performance_ad_level__*
+        identifier: pma_Google_Ads_Performance_Ad_Level__*
         columns:
           - name: account_id
           - name: ad_group_id
@@ -24,4 +24,3 @@ sources:
           - name: headline3
           - name: impressions
           - name: configname
-

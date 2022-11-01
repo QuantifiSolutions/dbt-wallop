@@ -32,8 +32,8 @@ ga_goals AS (
         REGEXP_EXTRACT(g1.configName, "(?i)^.* -> ([a-z0-9\\(\\)\\-\\./': é]+) -> .*$") AS ga_property,
         REGEXP_EXTRACT(g1.configName, "(?i)^.* -> .* -> ([a-z0-9\\(\\)\\-\\./': é]+) \\([0-9]+\\)$") AS ga_view_name,
         REGEXP_EXTRACT(g1.configName, ".* -> .* -> .* \\(([0-9]+)\\)$") AS ga_view_number
-    FROM `bigquery-312020`.`analytics_wallop`.`pma_Google_Analytics_UA_Goals_1_10_*` g1
-    JOIN `bigquery-312020`.`analytics_wallop`.`pma_Google_Analytics_UA_Goals_11_20_*` g2
+    FROM {{source('analytics_wallop', 'pma_google_analytics_ua_goals_1_10')}} g1
+    JOIN {{source('analytics_wallop', 'pma_google_analytics_ua_goals_11_20')}} g2
         ON g1.adwordsAdGroupID = g2.adwordsAdGroupID
         AND g1.campaign = g2.campaign
         AND g1.source = g2.source

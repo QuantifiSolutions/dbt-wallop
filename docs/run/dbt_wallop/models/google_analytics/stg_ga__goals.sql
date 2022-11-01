@@ -1,4 +1,8 @@
-WITH
+
+
+  create or replace view `dbt-wallop-dev-1`.`google_analytics`.`stg_ga__goals`
+  OPTIONS()
+  as WITH
 ga_goals AS (
     SELECT
         NULLIF(g1.adwordsAdGroupID, '(not set)') AS adwords_adgroup_id,
@@ -41,4 +45,5 @@ ga_goals AS (
         AND g1.configName = g2.configName
         )
 
-SELECT * FROM ga_goals
+SELECT * FROM ga_goals;
+

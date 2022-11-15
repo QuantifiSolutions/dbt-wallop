@@ -2,6 +2,7 @@ WITH
 processing_layer_1 AS (
     SELECT
         NULLIF(account_id, '') AS account_id,
+        configName AS account_name,
         NULLIF(ad_group_id, '') AS adgroup_id,
         NULLIF(adgroup_name, '') AS adgroup_name,
         NULLIF(ad_type, '') AS ad_type,
@@ -16,13 +17,13 @@ processing_layer_1 AS (
         impressions,
         clicks,
         DATE(date) AS `date`,
-        configName AS client_name,
     FROM {{source('analytics_wallop', 'pma_google_ads_performance_ad_level')}}
     ),
 
 final AS (
     SELECT
         account_id,
+        account_name,
         adgroup_id,
         adgroup_name,
         ad_type,
@@ -39,7 +40,6 @@ final AS (
         impressions,
         clicks,
         `date`,
-        client_name,
     FROM processing_layer_1
     WHERE
         campaign_id IS NOT NULL

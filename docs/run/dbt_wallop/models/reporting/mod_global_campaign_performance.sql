@@ -1,8 +1,15 @@
 
+  
+    
 
-  create or replace view `dbt-wallop-dev-1`.`reporting`.`mod_global_campaign_performance`
-  OPTIONS()
-  as WITH
+    create or replace table `dbt-wallop-dev-1`.`reporting`.`mod_global_campaign_performance`
+    
+    
+    OPTIONS()
+    as (
+      
+
+WITH
 campaign_rollup AS (
     SELECT
         data_source,
@@ -73,5 +80,6 @@ final AS (
         AND cr.date = gcr.date
         )
 
-SELECT * FROM final;
-
+SELECT * FROM final
+    );
+  

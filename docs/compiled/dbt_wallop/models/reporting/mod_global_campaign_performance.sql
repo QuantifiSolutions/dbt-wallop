@@ -1,3 +1,5 @@
+
+
 WITH
 campaign_rollup AS (
     SELECT

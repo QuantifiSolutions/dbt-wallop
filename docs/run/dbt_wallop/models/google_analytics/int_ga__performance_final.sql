@@ -6,10 +6,10 @@
 ga_performance_final AS (
     SELECT
         p.adwords_adgroup_id,
-        p.campaign,
         p.channel_grouping,
-        p.source,
-        p.source_medium,
+        p.campaign AS utm_campaign,
+        p.source AS utm_source,
+        SPLIT(p.source_medium, ' / ')[OFFSET(1)] AS utm_medium, 
         p.cost,
         p.impressions,
         p.clicks,
@@ -55,6 +55,7 @@ ga_performance_final AS (
         AND p.channel_grouping = g.channel_grouping
         AND p.source = g.source
         AND p.source_medium = g.source_medium
+        AND p.date = g.date
         )
 
 SELECT * FROM ga_performance_final;

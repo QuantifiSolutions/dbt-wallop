@@ -3,77 +3,75 @@
   create or replace view `dbt-wallop-dev-1`.`reporting`.`mod_global_campaign_performance`
   OPTIONS()
   as WITH
-gads_core AS (
+campaign_rollup AS (
     SELECT
-        'Google Ads' AS data_source,
+        data_source,
         account_id,
         account_name,
         campaign_id,
         campaign_name,
-        adgroup_id,
-        adgroup_name,
-        CAST(NULL AS STRING) AS ad_id,
-        CAST(NULL AS STRING) AS ad_name,
-        headline,
-        description,
-        cost,
-        impressions,
-        clicks,
+        utm_source,
+        utm_medium,
+        utm_campaign,
         date,
-    FROM `dbt-wallop-dev-1`.`google_ads`.`stg_gads__ad_performance`
-    ),
+        SUM(cost) AS cost,
+        SUM(impressions) AS impressions,
+        SUM(clicks) AS clicks,
+    FROM `dbt-wallop-dev-1`.`reporting`.`mod_global_ad_performance`
+    GROUP BY
+        1, 2, 3, 4, 5, 6, 7, 8, 9
+        ),
 
-fb_core AS (
+ga_campaign_rollup AS (
     SELECT
-        'Facebook' AS data_source,
-        account_id,
-        account_name,
-        campaign_id,
-        campaign_name,
-        adgroup_id,
-        adgroup_name,
-        ad_id,
-        ad_name,
-        headline,
-        description,
-        cost,
-        impressions,
-        clicks,
+        utm_campaign,
+        utm_source,
+        utm_medium,
         date,
-    FROM `dbt-wallop-dev-1`.`facebook`.`stg_fb__ad_performance`
-    ),
+        SUM(sessions) AS sessions,
+        SUM(session_duration) AS session_duration,
+        SUM(pageviews) AS pageviews,
+        SUM(bounces) AS bounces,
+        SUM(transactions) AS transactions,
+        SUM(transaction_revenue) AS transaction_revenue,
+        SUM(goal_completions_all) AS goal_completions_all,
+        SUM(goal1_completions) AS goal1_completions,
+        SUM(goal2_completions) AS goal2_completions,
+        SUM(goal3_completions) AS goal3_completions,
+        SUM(goal4_completions) AS goal4_completions,
+        SUM(goal5_completions) AS goal5_completions,
+        SUM(goal6_completions) AS goal6_completions,
+        SUM(goal7_completions) AS goal7_completions,
+        SUM(goal8_completions) AS goal8_completions,
+        SUM(goal9_completions) AS goal9_completions,
+        SUM(goal10_completions) AS goal10_completions,
+        SUM(goal11_completions) AS goal11_completions,
+        SUM(goal12_completions) AS goal12_completions,
+        SUM(goal13_completions) AS goal13_completions,
+        SUM(goal14_completions) AS goal14_completions,
+        SUM(goal15_completions) AS goal15_completions,
+        SUM(goal16_completions) AS goal16_completions,
+        SUM(goal17_completions) AS goal17_completions,
+        SUM(goal18_completions) AS goal18_completions,
+        SUM(goal19_completions) AS goal19_completions,
+        SUM(goal20_completions) AS goal20_completions,
+    FROM `dbt-wallop-dev-1`.`google_analytics`.`int_ga__performance_final`
+    GROUP BY
+        1, 2, 3, 4
+        ),
 
-bing_core AS (
+final AS (
     SELECT
-        'Bing' AS data_source,
-        account_id,
-        account_name,
-        campaign_id,
-        campaign_name,
-        CAST(NULL AS STRING) AS adgroup_id,
-        CAST(NULL AS STRING) AS adgroup_name,
-        CAST(NULL AS STRING) AS ad_id,
-        CAST(NULL AS STRING) AS ad_name,
-        CAST(NULL AS STRING) AS headline,
-        description,
-        cost,
-        impressions,
-        clicks,
-        date,
-    FROM `dbt-wallop-dev-1`.`bing`.`stg_bing__ad_performance`
-    ),
+        cr.* EXCEPT (`date`),
+        gcr.* EXCEPT (utm_campaign, utm_source, utm_medium, `date`),
+        cr.`date`
+    FROM campaign_rollup cr
+    LEFT JOIN ga_campaign_rollup gcr
+        ON cr.utm_campaign = gcr.utm_campaign
+        AND cr.utm_medium = gcr.utm_medium
+        AND cr.utm_source = gcr.utm_source
+        AND cr.date = gcr.date
+        )
 
-unioned AS (
-    SELECT * FROM gads_core
-
-    UNION ALL
-
-    SELECT * FROM fb_core
-
-    UNION ALL
-
-    SELECT * FROM bing_core
-    )
-
-SELECT * FROM unioned;
+SELECT * FROM final;
 

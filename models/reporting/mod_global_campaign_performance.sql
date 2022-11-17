@@ -13,7 +13,7 @@ campaign_rollup AS (
         SUM(cost) AS cost,
         SUM(impressions) AS impressions,
         SUM(clicks) AS clicks,
-    FROM `dbt-wallop-dev-1`.`reporting`.`mod_global_ad_performance`
+    FROM {{ref('mod_global_ad_performance')}}
     GROUP BY
         1, 2, 3, 4, 5, 6, 7, 8, 9
         ),
@@ -51,7 +51,7 @@ ga_campaign_rollup AS (
         SUM(goal18_completions) AS goal18_completions,
         SUM(goal19_completions) AS goal19_completions,
         SUM(goal20_completions) AS goal20_completions,
-    FROM `dbt-wallop-dev-1`.`google_analytics`.`int_ga__performance_final`
+    FROM {{ref('int_ga__performance_final')}}
     GROUP BY
         1, 2, 3, 4
         ),

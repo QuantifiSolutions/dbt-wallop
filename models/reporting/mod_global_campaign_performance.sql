@@ -1,3 +1,13 @@
+{{ config(
+    materialized = 'table',
+    partition_by = {
+      "field": "date",
+      "data_type": "date",
+      "granularity": "day"
+    },
+    require_partition_filter = false
+)}}
+
 WITH
 campaign_rollup AS (
     SELECT

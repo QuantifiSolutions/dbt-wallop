@@ -43,6 +43,13 @@ final AS (
     FROM processing_layer_1
     WHERE
         campaign_id IS NOT NULL
-        )
+        ),
 
-SELECT * FROM final
+final_w_row_uuid AS (
+    SELECT
+        *,
+        FARM_FINGERPRINT(TO_JSON_STRING(f)) AS row_uuid
+    FROM final f
+    )
+
+SELECT * FROM final_w_row_uuid

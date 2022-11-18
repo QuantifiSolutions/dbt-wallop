@@ -19,6 +19,7 @@ gads_core AS (
         impressions,
         clicks,
         date,
+        row_uuid,
     FROM `dbt-wallop-dev-1`.`google_ads`.`stg_gads__ad_performance`
     ),
 
@@ -42,6 +43,7 @@ fb_core AS (
         impressions,
         clicks,
         date,
+        row_uuid,
     FROM `dbt-wallop-dev-1`.`facebook`.`stg_fb__ad_performance`
     ),
 
@@ -65,6 +67,7 @@ bing_core AS (
         impressions,
         clicks,
         date,
+        row_uuid,
     FROM `dbt-wallop-dev-1`.`bing`.`stg_bing__ad_performance`
     ),
 
@@ -78,6 +81,35 @@ unioned AS (
     UNION ALL
 
     SELECT * FROM bing_core
+    ),
+
+unioned_plus_fields AS (
+    SELECT
+        u.*,
+        STRUCT(gads.ad_type) AS gads,
+        STRUCT(
+            fb.image_url,
+            fb.actions_comment,
+            fb.actions_link_click,
+            fb.actions_onsite_conversion__post_save,
+            fb.actions_post,
+            fb.actions_post_engagement,
+            fb.actions_post_reaction,
+            fb.actions_purchase,
+            fb.actions_video_view_video_play
+            ) AS fb,
+    FROM unioned u
+    LEFT JOIN `dbt-wallop-dev-1`.`google_ads`.`stg_gads__ad_performance` gads
+        ON u.row_uuid = gads.row_uuid
+    LEFT JOIN `dbt-wallop-dev-1`.`facebook`.`stg_fb__ad_performance` fb
+        ON u.row_uuid = fb.row_uuid
+        ),
+
+final AS (
+    SELECT
+        * EXCEPT (row_uuid, date),
+        date,
+    FROM unioned_plus_fields
     )
 
-SELECT * FROM unioned
+SELECT * FROM final

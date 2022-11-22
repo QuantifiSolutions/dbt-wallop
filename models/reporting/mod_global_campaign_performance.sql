@@ -34,7 +34,8 @@ campaign_rollup AS (
 ga_campaign_rollup AS (
     SELECT
         'Google Analytics' AS data_source,
-        ga_account AS account_name,
+        ga_view_name AS account_name,
+        ga_view_number AS account_id,
         channel_grouping,
         utm_campaign,
         utm_source,
@@ -71,13 +72,13 @@ ga_campaign_rollup AS (
         ) ga
     FROM {{ref('int_ga__performance_final')}}
     GROUP BY
-        1, 2, 3, 4, 5, 6, 7
+        1, 2, 3, 4, 5, 6, 7, 8
         ),
 
 final AS (
     SELECT
         COALESCE(cr.data_source, gcr.data_source) AS data_source,
-        cr.account_id,
+        COALESCE(cr.account_id, gcr.account_id) AS account_id,
         COALESCE(cr.account_name, gcr.account_name) AS account_name,
         cr.campaign_id,
         cr.campaign_name,

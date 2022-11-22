@@ -1,21 +1,21 @@
 WITH
 ga_goals AS (
     SELECT
-        NULLIF(g1.adwordsAdGroupID, '(not set)') AS adwords_adgroup_id,
-        NULLIF(g1.campaign, '(not set)') AS campaign,
-        g1.channelGrouping AS channel_grouping,
-        g1.source,
-        g1.sourceMedium AS source_medium,
-        g1.goal1Completions AS goal1_completions,
-        g1.goal2Completions AS goal2_completions,
-        g1.goal3Completions AS goal3_completions,
-        g1.goal4Completions AS goal4_completions,
-        g1.goal5Completions AS goal5_completions,
-        g1.goal6Completions AS goal6_completions,
-        g1.goal7Completions AS goal7_completions,
-        g1.goal8Completions AS goal8_completions,
-        g1.goal9Completions AS goal9_completions,
-        g1.goal10Completions AS goal10_completions,
+        NULLIF(COALESCE(g1.adwordsAdGroupID, g2.adwordsAdGroupID), '(not set)') AS adwords_adgroup_id,
+        NULLIF(COALESCE(g1.campaign, g2.campaign), '(not set)') AS campaign,
+        COALESCE(g1.channelGrouping, g2.channelGrouping) AS channel_grouping,
+        COALESCE(g1.source, g2.source) AS source,
+        COALESCE(g1.sourceMedium, g2.sourceMedium) AS source_medium,
+        IFNULL(g1.goal1Completions, 0) AS goal1_completions,
+        IFNULL(g1.goal2Completions, 0) AS goal2_completions,
+        IFNULL(g1.goal3Completions, 0) AS goal3_completions,
+        IFNULL(g1.goal4Completions, 0) AS goal4_completions,
+        IFNULL(g1.goal5Completions, 0) AS goal5_completions,
+        IFNULL(g1.goal6Completions, 0) AS goal6_completions,
+        IFNULL(g1.goal7Completions, 0) AS goal7_completions,
+        IFNULL(g1.goal8Completions, 0) AS goal8_completions,
+        IFNULL(g1.goal9Completions, 0) AS goal9_completions,
+        IFNULL(g1.goal10Completions, 0) AS goal10_completions,
         IFNULL(g2.goal11Completions, 0) AS goal11_completions,
         IFNULL(g2.goal12Completions, 0) AS goal12_completions,
         IFNULL(g2.goal13Completions, 0) AS goal13_completions,
@@ -26,14 +26,14 @@ ga_goals AS (
         IFNULL(g2.goal18Completions, 0) AS goal18_completions,
         IFNULL(g2.goal19Completions, 0) AS goal19_completions,
         IFNULL(g2.goal20Completions, 0) AS goal20_completions,
-        DATE(g1.date) AS `date`,
-        g1.configName AS config_name,
-        REGEXP_EXTRACT(g1.configName, "(?i)^([a-z0-9\\(\\)\\-\\./': é&]+) -> .*$") AS ga_account,
-        REGEXP_EXTRACT(g1.configName, "(?i)^.* -> ([a-z0-9\\(\\)\\-\\./': é&]+) -> .*$") AS ga_property,
-        REGEXP_EXTRACT(g1.configName, "(?i)^.* -> .* -> ([a-z0-9\\(\\)\\-\\./': é&]+) \\([0-9]+\\)$") AS ga_view_name,
-        REGEXP_EXTRACT(g1.configName, ".* -> .* -> .* \\(([0-9]+)\\)$") AS ga_view_number
+        DATE(COALESCE(g1.date, g2.date)) AS `date`,
+        COALESCE(g1.configName, g2.configName) AS config_name,
+        REGEXP_EXTRACT(COALESCE(g1.configName, g2.configName), "(?i)^([a-z0-9\\(\\)\\-\\./': é&]+) -> .*$") AS ga_account,
+        REGEXP_EXTRACT(COALESCE(g1.configName, g2.configName), "(?i)^.* -> ([a-z0-9\\(\\)\\-\\./': é&]+) -> .*$") AS ga_property,
+        REGEXP_EXTRACT(COALESCE(g1.configName, g2.configName), "(?i)^.* -> .* -> ([a-z0-9\\(\\)\\-\\./': é&]+) \\([0-9]+\\)$") AS ga_view_name,
+        REGEXP_EXTRACT(COALESCE(g1.configName, g2.configName), ".* -> .* -> .* \\(([0-9]+)\\)$") AS ga_view_number
     FROM {{source('analytics_wallop', 'pma_google_analytics_ua_goals_1_10')}} g1
-    LEFT JOIN {{source('analytics_wallop', 'pma_google_analytics_ua_goals_11_20')}} g2
+    FULL OUTER JOIN {{source('analytics_wallop', 'pma_google_analytics_ua_goals_11_20')}} g2
         ON g1.adwordsAdGroupID = g2.adwordsAdGroupID
         AND g1.campaign = g2.campaign
         AND g1.source = g2.source

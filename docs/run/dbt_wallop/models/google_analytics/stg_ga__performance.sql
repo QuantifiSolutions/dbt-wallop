@@ -22,9 +22,9 @@ ga_performance AS (
         goalCompletionsAll AS goal_completions_all,
         DATE(date) AS `date`,
         configName AS config_name,
-        REGEXP_EXTRACT(configName, "(?i)^([a-z0-9\\(\\)\\-\\./': é]+) -> .*$") AS ga_account,
-        REGEXP_EXTRACT(configName, "(?i)^.* -> ([a-z0-9\\(\\)\\-\\./': é]+) -> .*$") AS ga_property,
-        REGEXP_EXTRACT(configName, "(?i)^.* -> .* -> ([a-z0-9\\(\\)\\-\\./': é]+) \\([0-9]+\\)$") AS ga_view_name,
+        REGEXP_EXTRACT(configName, "(?i)^([a-z0-9\\(\\)\\-\\./': é&]+) -> .*$") AS ga_account,
+        REGEXP_EXTRACT(configName, "(?i)^.* -> ([a-z0-9\\(\\)\\-\\./': é&]+) -> .*$") AS ga_property,
+        REGEXP_EXTRACT(configName, "(?i)^.* -> .* -> ([a-z0-9\\(\\)\\-\\./': é&]+) \\([0-9]+\\)$") AS ga_view_name,
         REGEXP_EXTRACT(configName, ".* -> .* -> .* \\(([0-9]+)\\)$") AS ga_view_number
     FROM `bigquery-312020`.`analytics_wallop`.`pma_Google_Analytics_UA_Performance_*`
     )

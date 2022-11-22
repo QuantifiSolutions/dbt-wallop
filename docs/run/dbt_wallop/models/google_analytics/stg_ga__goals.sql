@@ -41,6 +41,7 @@ ga_goals AS (
         ON g1.adwordsAdGroupID = g2.adwordsAdGroupID
         AND g1.campaign = g2.campaign
         AND g1.source = g2.source
+        AND g1.sourceMedium = g2.sourceMedium
         AND g1.date = g2.date
         AND g1.configName = g2.configName
         )

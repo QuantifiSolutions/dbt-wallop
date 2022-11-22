@@ -41,6 +41,7 @@ campaign_rollup AS (
 ga_campaign_rollup AS (
     SELECT
         'Google Analytics' AS data_source,
+        ga_account AS account_name,
         channel_grouping,
         utm_campaign,
         utm_source,
@@ -77,14 +78,14 @@ ga_campaign_rollup AS (
         ) ga
     FROM `dbt-wallop-dev-1`.`google_analytics`.`int_ga__performance_final`
     GROUP BY
-        1, 2, 3, 4, 5, 6
+        1, 2, 3, 4, 5, 6, 7
         ),
 
 final AS (
     SELECT
         COALESCE(cr.data_source, gcr.data_source) AS data_source,
         cr.account_id,
-        cr.account_name,
+        COALESCE(cr.account_name, gcr.account_name) AS account_name,
         cr.campaign_id,
         cr.campaign_name,
         COALESCE(cr.utm_source, gcr.utm_source) AS utm_source,

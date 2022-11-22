@@ -47,11 +47,9 @@ ga_performance_final AS (
         p.ga_view_number,
     FROM `dbt-wallop-dev-1`.`google_analytics`.`stg_ga__performance` p
     LEFT JOIN `dbt-wallop-dev-1`.`google_analytics`.`stg_ga__goals` g
-        ON p.ga_account = g.ga_account
-        AND p.ga_property = g.ga_property
-        AND p.ga_view_number = g.ga_view_number
-        AND p.adwords_adgroup_id = g.adwords_adgroup_id
-        AND p.campaign = g.campaign
+        ON p.config_name = g.config_name
+        AND IFNULL(p.adwords_adgroup_id, '') = IFNULL(g.adwords_adgroup_id, '')
+        AND IFNULL(p.campaign, '') = IFNULL(g.campaign, '')
         AND p.channel_grouping = g.channel_grouping
         AND p.source = g.source
         AND p.source_medium = g.source_medium

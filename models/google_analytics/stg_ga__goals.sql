@@ -28,9 +28,9 @@ ga_goals AS (
         IFNULL(g2.goal20Completions, 0) AS goal20_completions,
         DATE(g1.date) AS `date`,
         g1.configName AS config_name,
-        REGEXP_EXTRACT(g1.configName, "(?i)^([a-z0-9\\(\\)\\-\\./': é]+) -> .*$") AS ga_account,
-        REGEXP_EXTRACT(g1.configName, "(?i)^.* -> ([a-z0-9\\(\\)\\-\\./': é]+) -> .*$") AS ga_property,
-        REGEXP_EXTRACT(g1.configName, "(?i)^.* -> .* -> ([a-z0-9\\(\\)\\-\\./': é]+) \\([0-9]+\\)$") AS ga_view_name,
+        REGEXP_EXTRACT(g1.configName, "(?i)^([a-z0-9\\(\\)\\-\\./': é&]+) -> .*$") AS ga_account,
+        REGEXP_EXTRACT(g1.configName, "(?i)^.* -> ([a-z0-9\\(\\)\\-\\./': é&]+) -> .*$") AS ga_property,
+        REGEXP_EXTRACT(g1.configName, "(?i)^.* -> .* -> ([a-z0-9\\(\\)\\-\\./': é&]+) \\([0-9]+\\)$") AS ga_view_name,
         REGEXP_EXTRACT(g1.configName, ".* -> .* -> .* \\(([0-9]+)\\)$") AS ga_view_number
     FROM {{source('analytics_wallop', 'pma_google_analytics_ua_goals_1_10')}} g1
     LEFT JOIN {{source('analytics_wallop', 'pma_google_analytics_ua_goals_11_20')}} g2

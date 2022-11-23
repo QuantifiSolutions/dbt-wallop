@@ -1,8 +1,12 @@
-WITH
+
+
+  create or replace view `dbt-wallop-dev-1`.`staging_ga`.`stg_ga__goals`
+  OPTIONS()
+  as WITH
 ga_goals AS (
     SELECT
-        g1.adwordsAdGroupID AS adwords_adgroup_id,
-        g1.campaign,
+        NULLIF(g1.adwordsAdGroupID, '(not set)') AS adwords_adgroup_id,
+        NULLIF(g1.campaign, '(not set)') AS campaign,
         g1.channelGrouping AS channel_grouping,
         g1.source,
         g1.sourceMedium AS source_medium,
@@ -26,10 +30,14 @@ ga_goals AS (
         g2.goal18Completions AS goal18_completions,
         g2.goal19Completions AS goal19_completions,
         g2.goal20Completions AS goal20_completions,
-        g1.date,
+        DATE(g1.date) AS `date`,
         g1.configName AS config_name,
-    FROM {{source('analytics_wallop', 'pma_google_analytics_ua_goals_1_10')}} g1
-    JOIN {{source('analytics_wallop', 'pma_google_analytics_ua_goals_11_20')}} g2
+        REGEXP_EXTRACT(g1.configName, "(?i)^([a-z0-9\\(\\)\\-\\./': é]+) -> .*$") AS ga_account,
+        REGEXP_EXTRACT(g1.configName, "(?i)^.* -> ([a-z0-9\\(\\)\\-\\./': é]+) -> .*$") AS ga_property,
+        REGEXP_EXTRACT(g1.configName, "(?i)^.* -> .* -> ([a-z0-9\\(\\)\\-\\./': é]+) \\([0-9]+\\)$") AS ga_view_name,
+        REGEXP_EXTRACT(g1.configName, ".* -> .* -> .* \\(([0-9]+)\\)$") AS ga_view_number
+    FROM `bigquery-312020`.`analytics_wallop`.`pma_Google_Analytics_UA_Goals_1_10_*` g1
+    JOIN `bigquery-312020`.`analytics_wallop`.`pma_Google_Analytics_UA_Goals_11_20_*` g2
         ON g1.adwordsAdGroupID = g2.adwordsAdGroupID
         AND g1.campaign = g2.campaign
         AND g1.source = g2.source
@@ -37,4 +45,5 @@ ga_goals AS (
         AND g1.configName = g2.configName
         )
 
-SELECT * FROM ga_goals
+SELECT * FROM ga_goals;
+

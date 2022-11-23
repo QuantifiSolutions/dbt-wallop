@@ -1,1 +1,0 @@
-SELECT * FROM `bigquery-312020.production.google_ads_performance`

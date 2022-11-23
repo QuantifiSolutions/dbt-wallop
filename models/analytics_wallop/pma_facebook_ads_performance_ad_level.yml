@@ -1,0 +1,39 @@
+version: 2
+
+sources:
+  - name: analytics_wallop
+    database: bigquery-312020
+    loader: PowerMyAnalytics
+    tables:
+      - name: pma_facebook_ads_performance_ad_level
+        identifier: pma_Facebook_Ads_Performance_Ad_Level__*
+        columns:
+          - name: frequency
+          - name: account_id
+          - name: account_name
+          - name: ad_id
+          - name: ad_name
+          - name: adset_id
+          - name: adset_name
+          - name: body
+          - name: campaign_id
+          - name: campaign_name
+          - name: clicks
+          - name: date
+          - name: image_url
+          - name: impressions
+          - name: reach
+          - name: spend
+          - name: utm_campaign
+          - name: utm_medium
+          - name: utm_source
+          - name: title_asset_text
+          - name: actions_comment
+          - name: actions_link_click
+          - name: actions_onsite_conversion__post_save
+          - name: actions_post
+          - name: actions_post_engagement
+          - name: actions_post_reaction
+          - name: actions_purchase
+          - name: video_play_actions_video_view
+

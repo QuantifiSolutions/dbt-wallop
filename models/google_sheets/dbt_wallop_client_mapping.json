@@ -15,6 +15,11 @@
       "mode": "REQUIRED"
     },
     {
+        "name": "data_pk",
+        "type": "BYTES",
+        "mode": "REQUIRED"
+      },
+    {
       "name": "client_name",
       "type": "STRING",
       "mode": "NULLABLE"

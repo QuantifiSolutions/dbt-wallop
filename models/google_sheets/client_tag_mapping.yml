@@ -1,0 +1,12 @@
+version: 2
+
+sources:
+  - name: google_sheets
+    database: bigquery-312020
+    loader: Google Sheets
+    tables:
+      - name: client_tag_mapping
+        identifier: client_tag_mapping
+        columns:
+          - name: client_name
+          - name: client_tag

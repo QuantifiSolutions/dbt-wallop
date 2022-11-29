@@ -13,7 +13,7 @@ processing_layer_1 AS (
         NULLIF(utm_medium, '') AS utm_medium,
         NULLIF(utm_source, '') AS utm_source,
         NULLIF(body, '') AS description,
-        NULLIF(title_asset_text, '') AS headline,
+        CAST(NULL AS STRING) AS headline,
         NULLIF(image_url, '') AS image_url,
         spend AS cost,
         reach,

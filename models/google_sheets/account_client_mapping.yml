@@ -1,0 +1,15 @@
+version: 2
+
+sources:
+  - name: google_sheets
+    database: bigquery-312020
+    loader: Google Sheets
+    tables:
+      - name: account_client_mapping
+        identifier: account_client_mapping
+        columns:
+          - name: data_source
+          - name: account_id
+          - name: account_name
+          - name: data_pk
+          - name: client_name

@@ -23,10 +23,5 @@
       "name": "client_name",
       "type": "STRING",
       "mode": "NULLABLE"
-    },
-      {
-      "name": "client_tag",
-      "type": "STRING",
-      "mode": "NULLABLE"
     }
   ]

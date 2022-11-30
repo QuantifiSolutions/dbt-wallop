@@ -16,6 +16,8 @@ client_mapping AS (
             WHEN account_id = '50194384' AND REGEXP_CONTAINS(campaign_name, '(?i)(harbor grand)') THEN 'Harbor Grand Hotel'
             WHEN account_id = '50194384' AND REGEXP_CONTAINS(campaign_name, '(?i)(marina grand)') THEN 'Marina Grand Resort'
             WHEN account_id = '50194384' AND REGEXP_CONTAINS(campaign_name, '(?i)(trrc)') THEN 'The Ranch At Rock Creek'
+            WHEN account_id = '50194384' AND REGEXP_CONTAINS(campaign_name, '(?i)(southall)') THEN 'Southall Farm'
+            WHEN account_id = '50194384' AND REGEXP_CONTAINS(campaign_name, '(?i)(lord elgin)') THEN 'Lord Elgin'
             -- Google Ads - 4178754205 - Corner Collection
             WHEN account_id = '4178754205' AND REGEXP_CONTAINS(campaign_name, '(?i)(spa william gray)') THEN 'Spa William Gray'
             WHEN account_id = '4178754205' AND REGEXP_CONTAINS(campaign_name, '(?i)(petit hotel)') THEN 'Petit Hotel'
@@ -27,8 +29,19 @@ client_mapping AS (
             WHEN account_id = '4178754205' AND REGEXP_CONTAINS(campaign_name, '(?i)(nelli bistro)') THEN 'Nelli Bistro'
             WHEN account_id = '4178754205' AND REGEXP_CONTAINS(campaign_name, '(?i)(kyo sushi)') THEN 'Kyo Sushi Bar'
             WHEN account_id = '4178754205' AND REGEXP_CONTAINS(campaign_name, '(?i)(rainspa)') THEN 'Rainspa'
+            WHEN account_id = '4178754205' AND REGEXP_CONTAINS(campaign_name, '(?i)(modavie)') THEN 'Modavie'
+            -- Facebook - 467804157855475 - Mirival
+            WHEN account_id = '467804157855475' AND REGEXP_CONTAINS(campaign_name, '(?i)(austin)') THEN 'Miraval Resorts Austin'
+            WHEN account_id = '467804157855475' AND REGEXP_CONTAINS(campaign_name, '(?i)(arizona)') THEN 'Miraval Resorts Arizona'
+            WHEN account_id = '467804157855475' AND REGEXP_CONTAINS(campaign_name, '(?i)(new england|berkshire)') THEN 'Miraval Resorts Berkshire'
         END AS client_name
     FROM {{ref('mod_global_campaign_performance')}}
-    )
+    WHERE
+        account_id IN (
+            '50194384',
+            '4178754205',
+            '467804157855475'
+            )
+            )
 
 SELECT * FROM client_mapping

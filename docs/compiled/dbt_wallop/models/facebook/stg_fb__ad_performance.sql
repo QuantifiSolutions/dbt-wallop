@@ -18,7 +18,7 @@ processing_layer_1 AS (
         spend AS cost,
         reach,
         impressions,
-        clicks,
+        actions_link_click AS clicks,
         actions_comment,
         actions_link_click,
         actions_onsite_conversion__post_save,

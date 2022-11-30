@@ -34,13 +34,19 @@ client_mapping AS (
             WHEN account_id = '467804157855475' AND REGEXP_CONTAINS(campaign_name, '(?i)(austin)') THEN 'Miraval Resorts Austin'
             WHEN account_id = '467804157855475' AND REGEXP_CONTAINS(campaign_name, '(?i)(arizona)') THEN 'Miraval Resorts Arizona'
             WHEN account_id = '467804157855475' AND REGEXP_CONTAINS(campaign_name, '(?i)(new england|berkshire)') THEN 'Miraval Resorts Berkshire'
+            -- Facebook - 759778052430 - Scandinave Spa
+            WHEN account_id = '759778052430' AND REGEXP_CONTAINS(campaign_name, '(?i)(blue mountain)') THEN 'Scandinave Spa Blue Mountain'
+            WHEN account_id = '759778052430' AND REGEXP_CONTAINS(campaign_name, '(?i)(tremblant)') THEN 'Scandinave Spa Mont-Tremblant'
+            WHEN account_id = '759778052430' AND REGEXP_CONTAINS(campaign_name, '(?i)(montreal)') THEN 'Scandinave Spa Montreal'
+            WHEN account_id = '759778052430' AND REGEXP_CONTAINS(campaign_name, '(?i)(whistler)') THEN 'Scandinave Spa Whistler'
         END AS client_name
     FROM {{ref('mod_global_campaign_performance')}}
     WHERE
         account_id IN (
             '50194384',
             '4178754205',
-            '467804157855475'
+            '467804157855475',
+            '759778052430'
             )
             )
 

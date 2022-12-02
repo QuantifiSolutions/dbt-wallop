@@ -43,15 +43,14 @@ client_mapping AS (
             WHEN account_id = '759778052430' AND REGEXP_CONTAINS(campaign_name, '(?i)(tremblant)') THEN 'Scandinave Spa Mont-Tremblant'
             WHEN account_id = '759778052430' AND REGEXP_CONTAINS(campaign_name, '(?i)(montreal)') THEN 'Scandinave Spa Montreal'
             WHEN account_id = '759778052430' AND REGEXP_CONTAINS(campaign_name, '(?i)(whistler)') THEN 'Scandinave Spa Whistler'
+            -- Google Ads - 3469056797 - Marcus Hotels
+            WHEN account_id = '3469056797' AND REGEXP_CONTAINS(campaign_name, '(?i)(pfister)') THEN 'Pfister'
+            WHEN account_id = '3469056797' AND REGEXP_CONTAINS(campaign_name, '(?i)(saint kate)') THEN 'Saint Kate'
+            -- Google Ads - 8633994674 - The Marina Grand Resort & Harbor Grand Hotel
+            WHEN account_id = '8633994674' AND REGEXP_CONTAINS(campaign_name, '(?i)(marina)') THEN 'Marina Grand Resort'
+            WHEN account_id = '8633994674' AND REGEXP_CONTAINS(campaign_name, '(?i)(harbor)') THEN 'Harbor Grand Hotel'
         END AS client_name
     FROM `dbt-wallop-dev-1`.`reporting`.`mod_global_campaign_performance`
-    WHERE
-        account_id IN (
-            '50194384',
-            '4178754205',
-            '467804157855475',
-            '759778052430'
-            )
             )
 
 SELECT * FROM client_mapping;

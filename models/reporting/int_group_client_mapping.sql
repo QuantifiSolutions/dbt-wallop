@@ -47,15 +47,6 @@ client_mapping AS (
             WHEN account_id = '8633994674' AND REGEXP_CONTAINS(campaign_name, '(?i)(harbor)') THEN 'Harbor Grand Hotel'
         END AS client_name
     FROM {{ref('mod_global_campaign_performance')}}
-    WHERE
-        account_id IN (
-            '50194384',
-            '4178754205',
-            '467804157855475',
-            '759778052430',
-            '3469056797',
-            '8633994674'
-            )
             )
 
 SELECT * FROM client_mapping

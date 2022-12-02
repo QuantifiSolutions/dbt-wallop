@@ -19,17 +19,19 @@ client_mapping AS (
             WHEN account_id = '50194384' AND REGEXP_CONTAINS(campaign_name, '(?i)(southall)') THEN 'Southall Farm'
             WHEN account_id = '50194384' AND REGEXP_CONTAINS(campaign_name, '(?i)(lord elgin)') THEN 'Lord Elgin'
             -- Google Ads - 4178754205 - Corner Collection
-            WHEN account_id = '4178754205' AND REGEXP_CONTAINS(campaign_name, '(?i)(spa william gray)') THEN 'Spa William Gray'
-            WHEN account_id = '4178754205' AND REGEXP_CONTAINS(campaign_name, '(?i)(petit hotel)') THEN 'Petit Hotel'
-            WHEN account_id = '4178754205' AND REGEXP_CONTAINS(campaign_name, "(?i)(place d'armes)") THEN "Hotel Place D'Armes"
-            WHEN account_id = '4178754205' AND REGEXP_CONTAINS(campaign_name, '(?i)(hotel william gray)') THEN 'Hotel William Gray'
-            WHEN account_id = '4178754205' AND REGEXP_CONTAINS(campaign_name, '(?i)(auberge du vieux-port)') THEN 'Auberge du Vieux-Port'
-            WHEN account_id = '4178754205' AND REGEXP_CONTAINS(campaign_name, '(?i)(hotel nelligan)') THEN 'Hotel Nelligan'
-            WHEN account_id = '4178754205' AND REGEXP_CONTAINS(campaign_name, '(?i)(mechant boeuf)') THEN 'Mechant Boeuf'
-            WHEN account_id = '4178754205' AND REGEXP_CONTAINS(campaign_name, '(?i)(nelli bistro)') THEN 'Nelli Bistro'
-            WHEN account_id = '4178754205' AND REGEXP_CONTAINS(campaign_name, '(?i)(kyo sushi)') THEN 'Kyo Sushi Bar'
-            WHEN account_id = '4178754205' AND REGEXP_CONTAINS(campaign_name, '(?i)(rainspa)') THEN 'Rainspa'
-            WHEN account_id = '4178754205' AND REGEXP_CONTAINS(campaign_name, '(?i)(modavie)') THEN 'Modavie'
+            -- Facebook - 10103011988807217 - Corner Collection
+            WHEN account_id IN ('4178754205', '10103011988807217') AND REGEXP_CONTAINS(campaign_name, '(?i)(spa william gray)') THEN 'Spa William Gray'
+            WHEN account_id IN ('4178754205', '10103011988807217') AND REGEXP_CONTAINS(campaign_name, '(?i)(petit hotel)') THEN 'Petit Hotel'
+            WHEN account_id IN ('4178754205', '10103011988807217') AND REGEXP_CONTAINS(campaign_name, "(?i)(place d'armes)") THEN "Hotel Place D'Armes"
+            WHEN account_id IN ('4178754205', '10103011988807217') AND REGEXP_CONTAINS(campaign_name, '(?i)(hotel william gray)') THEN 'Hotel William Gray'
+            WHEN account_id IN ('4178754205', '10103011988807217') AND REGEXP_CONTAINS(campaign_name, '(?i)(auberge du vieux-port)') THEN 'Auberge du Vieux-Port'
+            WHEN account_id IN ('4178754205', '10103011988807217') AND REGEXP_CONTAINS(campaign_name, '(?i)(h[oô]tel nelligan)') THEN 'Hotel Nelligan'
+            WHEN account_id IN ('4178754205', '10103011988807217') AND REGEXP_CONTAINS(campaign_name, '(?i)(mechant boeuf)') THEN 'Mechant Boeuf'
+            WHEN account_id IN ('4178754205', '10103011988807217') AND REGEXP_CONTAINS(campaign_name, '(?i)(nelli bistro)') THEN 'Nelli Bistro'
+            WHEN account_id IN ('4178754205', '10103011988807217') AND REGEXP_CONTAINS(campaign_name, '(?i)(kyo sushi|kyo bar)') THEN 'Kyo Sushi Bar'
+            WHEN account_id IN ('4178754205', '10103011988807217') AND REGEXP_CONTAINS(campaign_name, '(?i)(rainspa)') THEN 'Rainspa'
+            WHEN account_id IN ('4178754205', '10103011988807217') AND REGEXP_CONTAINS(campaign_name, '(?i)(modavie)') THEN 'Modavie'
+            WHEN account_id IN ('4178754205', '10103011988807217') AND REGEXP_CONTAINS(campaign_name, '(?i)(brasserie 701)') THEN 'Brasserie 701'
             -- Facebook - 467804157855475 - Mirival
             WHEN account_id = '467804157855475' AND REGEXP_CONTAINS(campaign_name, '(?i)(austin)') THEN 'Miraval Resorts Austin'
             WHEN account_id = '467804157855475' AND REGEXP_CONTAINS(campaign_name, '(?i)(arizona)') THEN 'Miraval Resorts Arizona'

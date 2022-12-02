@@ -1,6 +1,10 @@
 WITH
 processing_layer_1 AS (
     SELECT
+        cmp.account_name,
+        cmp.account_id,
+        cmp.campaign_name,
+        cmp.campaign_id,
         CONCAT(cmp.account_id, IFNULL(cmp.campaign_id, '')) AS client_key,
         COALESCE(grp.client_name, gs.client_name) AS client_name
     FROM `dbt-wallop-dev-1`.`reporting`.`mod_global_campaign_performance` cmp
@@ -10,17 +14,23 @@ processing_layer_1 AS (
         ON cmp.account_id = grp.account_id
         AND cmp.campaign_id = grp.campaign_id
     GROUP BY
-        1, 2
+        1, 2, 3, 4, 5, 6
         ),
 
 final AS (
     SELECT
+        p1.account_id,
+        p1.account_name,
+        p1.campaign_id,
+        p1.campaign_name,
         p1.client_key,
         p1.client_name,
         tag.client_tag
     FROM processing_layer_1 p1
     LEFT JOIN `bigquery-312020`.`google_sheets`.`client_tag_mapping` tag
         ON p1.client_name = tag.client_name
+    WHERE
+        p1.client_name IS NOT NULL
         )
 
 SELECT * FROM final

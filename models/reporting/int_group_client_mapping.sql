@@ -39,6 +39,9 @@ client_mapping AS (
             WHEN account_id = '759778052430' AND REGEXP_CONTAINS(campaign_name, '(?i)(tremblant)') THEN 'Scandinave Spa Mont-Tremblant'
             WHEN account_id = '759778052430' AND REGEXP_CONTAINS(campaign_name, '(?i)(montreal)') THEN 'Scandinave Spa Montreal'
             WHEN account_id = '759778052430' AND REGEXP_CONTAINS(campaign_name, '(?i)(whistler)') THEN 'Scandinave Spa Whistler'
+            -- Google Ads - 3469056797 - Marcus Hotels
+            WHEN account_id = '3469056797' AND REGEXP_CONTAINS(campaign_name, '(?i)(pfister)') THEN 'Pfister'
+            WHEN account_id = '3469056797' AND REGEXP_CONTAINS(campaign_name, '(?i)(saint kate)') THEN 'Saint Kate'
         END AS client_name
     FROM {{ref('mod_global_campaign_performance')}}
     WHERE

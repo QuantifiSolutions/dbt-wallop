@@ -10,7 +10,11 @@ final AS (
         ad.*
     FROM {{ref('mod_global_ad_performance')}} ad
     LEFT JOIN {{ref('mod_composite_client_key')}} cli
-        ON CONCAT(ad.account_id, IFNULL(ad.campaign_id, '')) = cli.client_key
+        ON CONCAT(
+                ad.account_id,
+                IFNULL(ad.campaign_id, ''),
+                IFNULL(ad.campaign_name, '')
+                ) = cli.client_key
         )
 
 SELECT * FROM final

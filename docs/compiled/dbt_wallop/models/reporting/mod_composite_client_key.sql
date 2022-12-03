@@ -5,7 +5,11 @@ processing_layer_1 AS (
         cmp.account_id,
         cmp.campaign_name,
         cmp.campaign_id,
-        CONCAT(cmp.account_id, IFNULL(cmp.campaign_id, '')) AS client_key,
+        CONCAT(
+            cmp.account_id,
+            IFNULL(cmp.campaign_id, ''),
+            IFNULL(cmp.campaign_name, '')
+            ) AS client_key,
         COALESCE(grp.client_name, gs.client_name) AS client_name
     FROM `dbt-wallop-dev-1`.`reporting`.`mod_global_campaign_performance` cmp
     LEFT JOIN `bigquery-312020`.`google_sheets`.`account_client_mapping` gs

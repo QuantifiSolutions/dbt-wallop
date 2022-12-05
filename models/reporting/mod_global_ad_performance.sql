@@ -99,9 +99,27 @@ unioned_plus_fields AS (
             fb.actions_video_view_video_play
             ) AS fb,
     FROM unioned u
-    LEFT JOIN {{ref('stg_gads__ad_performance')}} gads
+    LEFT JOIN (
+        SELECT DISTINCT
+            row_uuid,
+            ad_type
+        FROM {{ref('stg_gads__ad_performance')}}
+        ) gads
         ON u.row_uuid = gads.row_uuid
-    LEFT JOIN {{ref('stg_fb__ad_performance')}} fb
+    LEFT JOIN (
+        SELECT DISTINCT
+            row_uuid,
+            image_url,
+            actions_comment,
+            actions_link_click,
+            actions_onsite_conversion__post_save,
+            actions_post,
+            actions_post_engagement,
+            actions_post_reaction,
+            actions_purchase,
+            actions_video_view_video_play,
+        FROM {{ref('stg_fb__ad_performance')}}
+        ) fb
         ON u.row_uuid = fb.row_uuid
         ),
 

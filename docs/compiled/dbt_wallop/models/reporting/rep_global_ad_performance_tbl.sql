@@ -16,3 +16,5 @@ final AS (
         )
 
 SELECT * FROM final
+WHERE
+    NOT REGEXP_CONTAINS(campaign_name, '(?i)(broad match)')

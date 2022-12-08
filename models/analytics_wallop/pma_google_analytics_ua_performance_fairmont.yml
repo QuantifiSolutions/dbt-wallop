@@ -1,0 +1,27 @@
+version: 2
+
+sources:
+  - name: analytics_wallop
+    database: bigquery-312020
+    loader: PowerMyAnalytics
+    tables:
+      - name: pma_google_analytics_ua_performance_fairmont
+        identifier: pma_Google_Analytics_UA_Performance_Fairmont_*
+        columns:
+          - name: adclicks
+          - name: adcost
+          - name: adwordsadgroupid
+          - name: bounces
+          - name: campaign
+          - name: channelgrouping
+          - name: date
+          - name: goalcompletionsall
+          - name: impressions
+          - name: pageviews
+          - name: sessionduration
+          - name: sessions
+          - name: source
+          - name: sourcemedium
+          - name: transactionrevenue
+          - name: transactions
+          - name: configname

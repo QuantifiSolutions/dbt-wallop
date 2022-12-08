@@ -1,6 +1,18 @@
 WITH
+-- union google analytics main and separate client sources
+processing_layer_g1 AS (
+    SELECT * FROM {{source('analytics_wallop', 'pma_google_analytics_ua_goals_1_10')}}
+    UNION ALL
+    SELECT * FROM {{source('analytics_wallop', 'pma_google_analytics_ua_goals_1_10_fairmont')}}
+    ),
+
+processing_layer_g2 AS (
+    SELECT * FROM {{source('analytics_wallop', 'pma_google_analytics_ua_goals_11_20')}}
+    ),
+
+-- Select distinct in case there exists overlap between google analytics main and seperate client sources
 ga_goals AS (
-    SELECT
+    SELECT DISTINCT
         NULLIF(COALESCE(g1.adwordsAdGroupID, g2.adwordsAdGroupID), '(not set)') AS adwords_adgroup_id,
         NULLIF(COALESCE(g1.campaign, g2.campaign), '(not set)') AS campaign,
         COALESCE(g1.channelGrouping, g2.channelGrouping) AS channel_grouping,
@@ -32,8 +44,8 @@ ga_goals AS (
         REGEXP_EXTRACT(COALESCE(g1.configName, g2.configName), "(?i)^.* -> ([a-z0-9\\(\\)\\-\\./': é&]+) -> .*$") AS ga_property,
         REGEXP_EXTRACT(COALESCE(g1.configName, g2.configName), "(?i)^.* -> .* -> ([a-z0-9\\(\\)\\-\\./': é&]+) \\([0-9]+\\)$") AS ga_view_name,
         REGEXP_EXTRACT(COALESCE(g1.configName, g2.configName), ".* -> .* -> .* \\(([0-9]+)\\)$") AS ga_view_number
-    FROM {{source('analytics_wallop', 'pma_google_analytics_ua_goals_1_10')}} g1
-    FULL OUTER JOIN {{source('analytics_wallop', 'pma_google_analytics_ua_goals_11_20')}} g2
+    FROM processing_layer_g1 g1
+    FULL OUTER JOIN processing_layer_g2 g2
         ON g1.adwordsAdGroupID = g2.adwordsAdGroupID
         AND g1.campaign = g2.campaign
         AND g1.source = g2.source

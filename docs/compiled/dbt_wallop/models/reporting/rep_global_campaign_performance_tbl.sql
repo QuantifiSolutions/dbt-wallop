@@ -19,7 +19,7 @@ final_w_exclusions AS (
     SELECT *
     FROM final
     WHERE
-        NOT (campaign_name IS NOT NULL AND REGEXP_CONTAINS(campaign_name, '(?i)(broad match)'))
+        NOT (campaign_name IS NOT NULL AND client_name != 'Marina Grand Resort' AND REGEXP_CONTAINS(campaign_name, '(?i)(broad match)'))
         AND NOT (client_name = 'Zingerman' AND campaign_name = 'Bid Strategy')
         AND NOT (client_name = 'The Ranch At Rock Creek' AND campaign_name = 'TRRC - Search - US & CA No extensions')
         )

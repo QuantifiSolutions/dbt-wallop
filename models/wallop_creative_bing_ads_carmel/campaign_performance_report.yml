@@ -1,0 +1,34 @@
+version: 2
+
+sources:
+  - name: wallop_creative_bing_ads_carmel
+    database: bigquery-312020
+    loader: Stitch
+    tables:
+      - name: campaign_performance_report
+        columns:
+          - name: accountstatus
+          - name: phonecalls
+          - name: _sdc_report_datetime
+          - name: impressions
+          - name: campaignname
+          - name: allrevenue
+          - name: accountname
+          - name: revenue
+          - name: clicks
+          - name: conversions
+          - name: _sdc_table_version
+          - name: campaignid
+          - name: customername
+          - name: accountid
+          - name: _sdc_received_at
+          - name: _sdc_sequence
+          - name: __sdc_primary_key
+          - name: timeperiod
+          - name: spend
+          - name: customerid
+          - name: _sdc_batched_at
+          - name: campaignstatus
+          - name: allconversions
+          - name: accountnumber
+

@@ -1,6 +1,14 @@
 WITH
+-- unioning the regular pma source with the 20221201 csv upload
+union_layer AS (
+    SELECT * FROM `bigquery-312020`.`analytics_wallop`.`pma_Google_Ads_Performance_Ad_Level__*` WHERE date NOT BETWEEN '2022-12-01' AND '2022-12-31'
+    UNION ALL
+    SELECT * FROM `dbt-wallop-dev-1`.`google_ads`.`stg_gads__ad_performance_csv_20221201`
+    ),
+
+-- blanks to nulls, select distinct in case of duplicates in union
 processing_layer_1 AS (
-    SELECT
+    SELECT DISTINCT
         NULLIF(account_id, '') AS account_id,
         configName AS account_name,
         NULLIF(ad_group_id, '') AS adgroup_id,
@@ -17,7 +25,7 @@ processing_layer_1 AS (
         impressions,
         clicks,
         DATE(date) AS `date`,
-    FROM `bigquery-312020`.`analytics_wallop`.`pma_Google_Ads_Performance_Ad_Level__*`
+    FROM union_layer
     ),
 
 final AS (

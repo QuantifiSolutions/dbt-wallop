@@ -1,0 +1,26 @@
+version: 2
+
+sources:
+  - name: analytics_wallop
+    database: bigquery-312020
+    loader: PowerMyAnalytics
+    tables:
+      - name: pma_google_ads_performance_ad_level_csv_upload_20221201
+        identifier: pma_Google_Ads_Performance_Ad_Level_CSV_Upload_20221201
+        columns:
+          - name: account_name
+          - name: account_id
+          - name: campaign_name
+          - name: campaign_id
+          - name: ad_group_name
+          - name: ad_group_id
+          - name: date
+          - name: ad_type
+          - name: headline1
+          - name: headline2
+          - name: headline3
+          - name: description1
+          - name: description2
+          - name: clicks
+          - name: impressions
+          - name: cost

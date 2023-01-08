@@ -68,7 +68,7 @@ bing_core AS (
         clicks,
         date,
         row_uuid,
-    FROM {{ref('stg_bing__ad_performance')}}
+    FROM {{ref('stg_bing__stitch_ad_performance')}}
     ),
 
 unioned AS (

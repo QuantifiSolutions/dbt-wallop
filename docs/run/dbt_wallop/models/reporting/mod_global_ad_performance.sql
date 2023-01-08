@@ -72,7 +72,7 @@ bing_core AS (
         clicks,
         date,
         row_uuid,
-    FROM `dbt-wallop-dev-1`.`bing`.`stg_bing__ad_performance`
+    FROM `dbt-wallop-dev-1`.`bing`.`stg_bing__stitch_ad_performance`
     ),
 
 unioned AS (

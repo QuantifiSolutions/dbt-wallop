@@ -15,9 +15,9 @@ unioned_bing AS (
 processing_layer_1 AS (
     SELECT
         _sdc_report_datetime,
-        accountid AS account_id,
+        CAST(accountid AS STRING) AS account_id,
         customername AS account_name,
-        campaignid AS campaign_id,
+        CAST(campaignid AS STRING) AS campaign_id,
         campaignname AS campaign_name,
         LOWER(campaignname) AS utm_campaign,
         'cpc' AS utm_medium,
